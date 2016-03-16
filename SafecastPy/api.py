@@ -15,6 +15,7 @@ import json
 # TODO Do like Twython: generic request constructing and handling here,
 # then a complete list of available methods in a Mixin.
 # https://github.com/ryanmcgrath/twython/blob/master/twython/endpoints.py
+# https://github.com/ryanmcgrath/twython/blob/master/twython/api.py
 from .exceptions import SafecastPyError, SafecastPyAuthError
 
 PRODUCTION_API_URL = 'https://api.safecast.org'
@@ -34,8 +35,20 @@ class SafecastPy(object):
     def __repr__(self):
         return '<SafecastPy: %s>' % (self.api_url)
 
+    def construct_url(self, uri, auth=False):
+        url = self.api_url + uri + '.json'
+        if auth:
+            if self.api_key is None:
+                raise SafecastPyAuthError('Require an api_key')
+            url = url + '?api_key={0}'.format(self.api_key)
+        return url
+
     def get_measurements(self):
-        return requests.get(self.api_url + '/measurements.json')
+        return requests.get(self.construct_url('/measurements'))
 
     def get_measurement(self, id):
-        return requests.get(self.api_url + '/measurements/{0}.json'.format(id))
+        return requests.get(self.construct_url('/measurements/{0}'.format(id)))
+
+    def post_measurement(self, measurement):
+        return requests.post(self.construct_url('/measurements', True),
+            json=measurement)
