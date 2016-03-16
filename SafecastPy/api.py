@@ -52,3 +52,7 @@ class SafecastPy(object):
     def post_measurement(self, measurement):
         return requests.post(self.construct_url('/measurements', True),
             json=measurement)
+
+    def delete_measurement(self, id):
+        return requests.delete(self.construct_url(
+            '/measurements/{0}'.format(id), True))

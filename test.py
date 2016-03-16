@@ -19,6 +19,13 @@ post = safecast.post_measurement({
     'unit': 'test'
 })
 print(post)
-print(post.json())
+measurement = post.json()
+print(measurement)
+delete = safecast.delete_measurement(measurement['id'])
+print(delete)
+print(delete.text)
 # print(safecast.post_measurement({}))
 # print(safecast.post_measurement({}).text)
+
+# http://dev.safecast.org/en-US/users/764
+# http://dev.safecast.org/en-US/users/764/measurements
