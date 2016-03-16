@@ -10,8 +10,10 @@ class SafecastPyError(Exception):
     """Generic error class, catch-all for most SafecastPy issues.
     Special cases are handled by TwythonAuthError & TwythonRateLimitError.
     """
-    def __init__(self, msg):
-        super(SafecastPyError, self).__init__(msg)
+    def __init__(self, message, error_code=None):
+        if error_code is not None:
+            message = 'Safecast API returned a {0} error'.format(error_code)
+        super(SafecastPyError, self).__init__(message)
 
 
 class SafecastPyAuthError(SafecastPyError):

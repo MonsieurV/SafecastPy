@@ -17,6 +17,9 @@ from .exceptions import SafecastPyError, SafecastPyAuthError
 PRODUCTION_API_URL = 'https://api.safecast.org'
 DEVELOPMENT_API_URL = 'http://dev.safecast.org'
 
+UNIT_CPM = 'cpm'
+UNIT_USV = 'usv'
+
 class SafecastPy(EndpointsMixin, object):
     def __init__(self, api_key=None, api_url=None):
         """Instantiates an instance of SafecastPy. Takes an optional api_key
@@ -35,27 +38,24 @@ class SafecastPy(EndpointsMixin, object):
         """Internal request method"""
         method = method.lower()
         params = params or {}
-
         func = getattr(requests, method)
-        print(func)
-        print(params)
-
         requests_args = {}
-
-        if method == 'get':
+        if method == 'get' or method == 'delete':
             requests_args['params'] = params
         else:
             requests_args['json'] = params.get('json')
-        print(requests_args)
         try:
             response = func(url, **requests_args)
         except requests.RequestException as e:
             raise SafecastPyError(str(e))
-
         # greater than 304 (not modified) is an error
         if response.status_code > 304:
-            raise SafecastPyError(response.text)
-            # TODO 401, Bad Request
+            if response.status_code == 401:
+                raise SafecastPyAuthError(response.json().get('error'))
+            if response.status_code in [422]:
+                raise SafecastPyError(response.json().get('errors'))
+            raise SafecastPyError(response.content,
+                error_code=response.status_code)
         try:
             if response.status_code == 204:
                 content = response.content
