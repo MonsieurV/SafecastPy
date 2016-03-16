@@ -8,20 +8,18 @@ Parameters that need to be embedded in the API url just need to be passed
 as a keyword argument.
 e.g. SafecastPy.get_measurement(id='12345')
 """
-import requests
 
 class EndpointsMixin(object):
-    def get_measurements(self):
-        # TODO Paging?
-        return requests.get(self.construct_url('/measurements'))
+    def get_measurements(self, **params):
+        return self.get('/measurements', params=params)
 
-    def get_measurement(self, id):
-        return requests.get(self.construct_url('/measurements/{0}'.format(id)))
+    def get_measurement(self, **params):
+        return self.get('/measurements/{0}'.format(params.get('id')),
+            params=params)
 
-    def post_measurement(self, measurement):
-        return requests.post(self.construct_url('/measurements', True),
-            json=measurement)
+    def post_measurement(self, **params):
+        return self.post('/measurements', params=params)
 
-    def delete_measurement(self, id):
-        return requests.delete(self.construct_url(
-            '/measurements/{0}'.format(id), True))
+    def delete_measurement(self, **params):
+        return self.delete('/measurements/{0}'.format(params.get('id')),
+            params=params)
