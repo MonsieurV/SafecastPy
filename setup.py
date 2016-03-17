@@ -2,12 +2,28 @@
 ==============
 SafecastPy
 ==============
+
 A pure Python wrapper around the Safecast API.
+
 Usage
 =====
 ::
-    TODO
-See the GitHub repository for a complete documentation.
+
+    import SafecastPy
+    safecast = SafecastPy.SafecastPy(
+      api_key='YOUR_API_KEY')
+    # Get some measurements.
+    print(safecast.get_measurements())
+    # Add a new measurement.
+    safecast.add_measurement(json={
+        'latitude': 49.418683,
+        'longitude': 2.823469,
+        'value': random.uniform(1, 10),
+        'unit': SafecastPy.UNIT_CPM
+    })
+
+
+See the GitHub repository for more documentation.
 """
 import re
 import ast
