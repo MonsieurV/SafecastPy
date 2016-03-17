@@ -12,6 +12,7 @@ class SafecastPyError(Exception):
     """
     def __init__(self, message, error_code=None):
         if error_code is not None:
+            self.html = message
             message = 'Safecast API returned a {0} error'.format(error_code)
         super(SafecastPyError, self).__init__(message)
 

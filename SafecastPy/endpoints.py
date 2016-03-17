@@ -39,6 +39,9 @@ class EndpointsMixin(object):
         return self.get('/bgeigie_imports/{0}'.format(params.get('id')),
             params=params)
 
+    def upload_bgeigie_import(self, **params):
+        return self.post('/bgeigie_imports', params=params)
+
     def get_users(self, **params):
         return self.get('/users', params=params)
 

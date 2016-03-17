@@ -39,11 +39,25 @@ measurement = safecast.add_measurement(json={
     'height': 120
 })
 print(measurement)
-# safecast.delete_measurement(id=measurement['id'])
+safecast.delete_measurement(id=measurement['id'])
 
 # bGeigie Imports
 print(len(safecast.get_bgeigie_imports()))
 print(safecast.get_bgeigie_import(id=1))
+try:
+    print(safecast.upload_bgeigie_import(files={
+        'bgeigie_import[source]': open('misc/sample_bgeigie.LOG', 'rb')
+    }, data={
+        'bgeigie_import[name]': 'Logging in Compiègne',
+        'bgeigie_import[description]': 'Around the Université de Technologie',
+        'bgeigie_import[credits]': 'by YtoTech team',
+        'bgeigie_import[cities]': 'Compiègne',
+        'bgeigie_import[orientation]': 'NWE',
+        'bgeigie_import[height]': '100'
+    }))
+except SafecastPy.SafecastPyError as spe:
+    print(spe)
+    assert(spe.message.get('md5sum')[0] == u'has already been taken')
 
 # Users.
 print(len(safecast.get_users()))

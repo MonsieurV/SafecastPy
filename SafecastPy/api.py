@@ -43,7 +43,12 @@ class SafecastPy(EndpointsMixin, object):
         if method == 'get' or method == 'delete':
             requests_args['params'] = params
         else:
-            requests_args['json'] = params.get('json')
+            if params.get('json'):
+                requests_args['json'] = params.get('json')
+            if params.get('files'):
+                requests_args['files'] = params.get('files')
+            if params.get('data'):
+                requests_args['data'] = params.get('data')
         try:
             response = func(url, **requests_args)
         except requests.RequestException as e:
@@ -72,7 +77,7 @@ class SafecastPy(EndpointsMixin, object):
                          (e.g. measurements/users)
         :type endpoint: string
         :param method: (optional) Method of accessing data, either
-                       GET, POST or DELETE. (default GET)
+                       GET, POST, PUT or DELETE. (default GET)
         :type method: string
         :param params: (optional) Dict of parameters (if any) accepted
                        the by Safecast API endpoint you are trying to
