@@ -4,7 +4,7 @@ A pure Python wrapper around the Safecast API.
 
 ![](/misc/safecast_logo.png?raw=true "Safecast")
 
-By the [YtoTech members](https://www.ytotech.com/).
+By the [YtoTech members](https://www.ytotech.com/). Checkout our related [blog post](https://blog.ytotech.com/2016/03/30/radiation-watch-safecast/).
 
 # Introduction
 
