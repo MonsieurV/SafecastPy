@@ -23,6 +23,8 @@ You can install SafecastPy using:
 $ pip install SafecastPy
 ```
 
+[![PyPI version](https://badge.fury.io/py/SafecastPy.svg)](https://pypi.python.org/pypi/SafecastPy/)
+
 # Starting out
 
 First, you'll want to head over to https://api.safecast.org/en-US/users/sign_up and register a new account!
