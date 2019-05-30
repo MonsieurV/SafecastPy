@@ -72,7 +72,7 @@ safecast = SafecastPy.SafecastPy(
 
 ```python
 # Get the 25 last added measurements.
-safecast.get_measurements(order='created_at desc'))
+safecast.get_measurements(order='created_at desc')
 # Use paging to navigate through the results.
 for i in range(2, 10):
   safecast.get_measurements(order='created_at desc', page=i))
