@@ -75,9 +75,9 @@ safecast = SafecastPy.SafecastPy(
 safecast.get_measurements(order='created_at desc'))
 # Use paging to navigate through the results.
 for i in range(2, 10):
-  safecast.get_measurements(order='created_at desc', page=i))
+  safecast.get_measurements(order='created_at desc', page=i)
 # You can also filter by unit.
-safecast.get_measurements(unit=SafecastPy.UNIT_CPM)))
+safecast.get_measurements(unit=SafecastPy.UNIT_CPM)
 # Or date.
 safecast.get_measurements(since='2015-09-08', until='2016-12-22')
 # And use a combination of all of that.
